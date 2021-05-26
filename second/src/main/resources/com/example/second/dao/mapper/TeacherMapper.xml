@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.second.dao.TeacherDao">
+    <resultMap id="BaseResultMap" type="com.example.second.entity.Teacher">
+        <id column="uid" property="uid" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="salary" property="salary" jdbcType="INTEGER"/>
+        <result column="located" property="located" jdbcType="VARCHAR"/>
+        <result column="graduated" property="graduated" jdbcType="VARCHAR"/>
+        <result column="qq" property="qq" jdbcType="VARCHAR"/>
+        <result column="record" property="record" jdbcType="VARCHAR"/>
+        <result column="inductiontime" property="inductiontime" jdbcType="VARCHAR"/>
+        <result column="hobby" property="hobby" jdbcType="VARCHAR"/>
+        <result column="weight" property="weight" jdbcType="VARCHAR"/>
+        <result column="height" property="height" jdbcType="VARCHAR"/>
+        <result column="bloodtype" property="bloodtype" jdbcType="VARCHAR"/>
+        <result column="married" property="married" jdbcType="VARCHAR"/>
+        <result column="political" property="political" jdbcType="VARCHAR"/>
+        <result column="nation" property="nation" jdbcType="VARCHAR"/>
+        <result column="idtype" property="idtype" jdbcType="VARCHAR"/>
+        <result column="idnumber" property="idnumber" jdbcType="VARCHAR"/>
+        <result column="major" property="major" jdbcType="VARCHAR"/>
+        <result column="mobilephone" property="mobilephone" jdbcType="VARCHAR"/>
+        <result column="adivise" property="adivise" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        uid, name, age, sex, salary,located,graduated,qq,record,inductiontime,hobby,weight,
+        height,bloodtype,married,political,nation,idtype,idnumber,major,mobilephone,adivise
+    </sql>
+
+    <select id="findAllTeachers" resultType="com.example.second.entity.Teacher">
+        select * from teacher
+    </select>
+
+    <select id="findTeacherByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from teacher where name = #{name,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteTeachersByIds">
+        delete from teacher where uid in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getCountTeachers" resultType="java.lang.Integer">
+        select count(uid) as count from teacher
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from teacher
+        where uid = #{uid,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteTeacherById" parameterType="java.lang.Long">
+        delete from teacher
+        where uid = #{uid,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" parameterType="com.example.second.entity.Teacher">
+        insert into teacher (uid, name, age,
+        sex,salary,cellphone,located,graduated,qq,record,inductiontime,hobby,weight,height,bloodtype,
+        married,political,nation,idtype,idnumber,major)
+        values (#{uid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
+        #{sex,jdbcType=VARCHAR},#{salary,jdbcType=INTEGER},
+        #{located,jdbcType=VARCHAR}, #{graduated,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR},
+        #{record,jdbcType=VARCHAR},#{inductiontime,jdbcType=VARCHAR},#{hobby,jdbcType=VARCHAR},
+         #{weight,jdbcType=VARCHAR},#{height,jdbcType=VARCHAR}, #{bloodtype,jdbcType=VARCHAR}
+        , #{married,jdbcType=VARCHAR}, #{political,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}
+        , #{idtype,jdbcType=VARCHAR}, #{idnumber,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{mobilephone,jdbcType=VARCHAR}
+                   , #{adivise,jdbcType=VARCHAR})
+    </insert>
+    <insert id="addTeacher" parameterType="com.example.second.entity.Teacher">
+        insert into teacher
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="salary != null">
+                salary,
+            </if>
+            <if test="located != null">
+                located,
+            </if>
+            <if test="graduated != null">
+                graduated,
+            </if>
+            <if test="qq != null">
+                qq,
+            </if>
+            <if test="record != null">
+                record,
+            </if>
+            <if test="inductiontime != null">
+                inductiontime,
+            </if>
+            <if test="hobby != null">
+                hobby,
+            </if>
+            <if test="weight != null">
+                weight,
+            </if>
+            <if test="height != null">
+                height,
+            </if>
+            <if test="bloodtype != null">
+                bloodtype,
+            </if>
+            <if test="married != null">
+                married,
+            </if>
+            <if test="political != null">
+                political,
+            </if>
+            <if test="nation != null">
+                nation,
+            </if>
+            <if test="idtype != null">
+                idtype,
+            </if>
+            <if test="idnumber != null">
+                idnumber,
+            </if>
+            <if test="major != null">
+                major,
+            </if>
+            <if test="mobilephone != null">
+                mobilephone,
+            </if>
+            <if test="adivise != null">
+                adivise,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="salary != null">
+                #{salary,jdbcType=INTEGER},
+            </if>
+            <if test="located != null">
+                #{located,jdbcType=VARCHAR},
+            </if>
+            <if test="graduated != null">
+                #{graduated,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="record != null">
+                #{record,jdbcType=VARCHAR},
+            </if>
+            <if test="inductiontime != null">
+                #{inductiontime,jdbcType=VARCHAR},
+            </if>
+            <if test="hobby != null">
+                #{hobby,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                #{weight,jdbcType=VARCHAR},
+            </if>
+            <if test="height != null">
+                #{height,jdbcType=VARCHAR},
+            </if>
+            <if test="bloodtype != null">
+                #{bloodtype,jdbcType=VARCHAR},
+            </if>
+            <if test="married != null">
+                #{married,jdbcType=VARCHAR},
+            </if>
+            <if test="political != null">
+                #{political,jdbcType=VARCHAR},
+            </if>
+            <if test="nation != null">
+                #{nation,jdbcType=VARCHAR},
+            </if>
+            <if test="idtype != null">
+                #{idtype,jdbcType=VARCHAR},
+            </if>
+            <if test="idnumber != null">
+                #{idnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="major != null">
+                #{major,jdbcType=VARCHAR},
+            </if>
+            <if test="mobilephone != null">
+                #{mobilephone,jdbcType=VARCHAR},
+            </if>
+            <if test="adivise != null">
+                #{adivise,jdbcType=VARCHAR},
+            </if>
+
+        </trim>
+    </insert>
+    <update id="updateTeacher" parameterType="com.example.second.entity.Teacher">
+        update teacher
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="salary != null">
+                salary = #{salary,jdbcType=INTEGER},
+            </if>
+            <if test="located != null">
+                located = #{located,jdbcType=VARCHAR},
+            </if>
+            <if test="graduated != null">
+                graduated = #{graduated,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                qq = #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="record != null">
+                record = #{record,jdbcType=VARCHAR},
+            </if>
+            <if test="inductiontime != null">
+                inductiontime = #{inductiontime,jdbcType=VARCHAR},
+            </if>
+            <if test="hobby != null">
+                hobby = #{hobby,jdbcType=VARCHAR},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=VARCHAR},
+            </if>
+            <if test="height != null">
+                height = #{height,jdbcType=VARCHAR},
+            </if>
+            <if test="bloodtype != null">
+                bloodtype = #{bloodtype,jdbcType=VARCHAR},
+            </if>
+            <if test="married != null">
+                married = #{married,jdbcType=VARCHAR},
+            </if>
+            <if test="political != null">
+                political = #{political,jdbcType=VARCHAR},
+            </if>
+            <if test="nation != null">
+                nation = #{nation,jdbcType=VARCHAR},
+            </if>
+            <if test="idtype != null">
+                idtype = #{idtype,jdbcType=VARCHAR},
+            </if>
+            <if test="idnumber != null">
+              idnumber = #{idnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="major != null">
+                major = #{major,jdbcType=VARCHAR},
+            </if>
+            <if test="mobilephone != null">
+                mobilephone = #{mobilephone,jdbcType=VARCHAR},
+            </if>
+            <if test="adivise != null">
+                adivise = #{adivise,jdbcType=VARCHAR},
+            </if>
+
+
+        </set>
+        where uid = #{uid,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.second.entity.Teacher">
+        update teacher
+        set name = #{name,jdbcType=VARCHAR},
+        age = #{age,jdbcType=INTEGER},
+        sex = #{sex,jdbcType=VARCHAR},
+        salary = #{salary,jdbcType=INTEGER},
+        located = #{located,jdbcType=VARCHAR},
+        graduated = #{graduated,jdbcType=VARCHAR},
+        qq = #{qq,jdbcType=VARCHAR},
+        record = #{record,jdbcType=VARCHAR},
+        inductiontime = #{inductiontime,jdbcType=VARCHAR},
+        hobby = #{hobby,jdbcType=VARCHAR},
+        weight = #{weight,jdbcType=VARCHAR},
+        height = #{height,jdbcType=VARCHAR},
+        bloodtype = #{bloodtype,jdbcType=VARCHAR},
+        married = #{married,jdbcType=VARCHAR},
+        political = #{political,jdbcType=VARCHAR},
+        nation = #{nation,jdbcType=VARCHAR},
+        idtype = #{idtype,jdbcType=VARCHAR},
+        idnumber = #{idnumber,jdbcType=VARCHAR},
+        major = #{major,jdbcType=VARCHAR},
+        mobilephone = #{mobilephone,jdbcType=VARCHAR},
+        adivise = #{adivise,jdbcType=VARCHAR},
+        where uid = #{uid,jdbcType=BIGINT}
+    </update>
+</mapper>

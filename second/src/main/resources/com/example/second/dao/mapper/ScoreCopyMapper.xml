@@ -1,0 +1,54 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.second.dao.ScoreCopyDao">
+    <insert id="addScore" parameterType="com.example.second.entity.Score">
+        insert into score_copy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+<!--            <if test="age != null">-->
+<!--                age,-->
+<!--            </if>-->
+<!--            <if test="sex != null">-->
+<!--                sex,-->
+<!--            </if>-->
+            <if test="coursename != null">
+                coursename,
+            </if>
+            <if test="coursenature != null">
+                coursenature,
+            </if>
+            <if test="coursescore != null">
+                coursescore,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+<!--            <if test="age != null">-->
+<!--                #{age,jdbcType=INTEGER},-->
+<!--            </if>-->
+<!--            <if test="sex != null">-->
+<!--                #{sex,jdbcType=VARCHAR},-->
+<!--            </if>-->
+            <if test="coursename != null">
+                #{coursename,jdbcType=VARCHAR},
+            </if>
+            <if test="coursenature != null">
+                #{coursenature,jdbcType=VARCHAR},
+            </if>
+            <if test="coursescore != null">
+                #{coursescore,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>    
